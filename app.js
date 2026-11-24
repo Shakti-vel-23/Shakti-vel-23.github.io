@@ -618,4 +618,79 @@ Status: Ready for immediate engineering placement & internships.
     });
   }
 
+  // --- CERTIFICATE LIGHTBOX MODAL ---
+  const certModalOverlay = document.getElementById('certModalOverlay');
+  const certModalTitle = document.getElementById('certModalTitle');
+  const certModalIssuer = document.getElementById('certModalIssuer');
+  const certModalImg = document.getElementById('certModalImg');
+  const certModalPlaceholder = document.getElementById('certModalPlaceholder');
+  const certModalDirectLink = document.getElementById('certModalDirectLink');
+  const certModalClose = document.getElementById('certModalClose');
+  const certCards = document.querySelectorAll('.cert-card');
+
+  function openCertModal(card) {
+    const title = card.getAttribute('data-title') || 'Certificate';
+    const issuer = card.getAttribute('data-issuer') || 'Issuing Authority';
+    const file = card.getAttribute('data-file') || '';
+
+    if (certModalTitle) certModalTitle.textContent = title;
+    if (certModalIssuer) certModalIssuer.textContent = issuer;
+
+    if (certModalImg && certModalPlaceholder) {
+      certModalImg.style.display = 'none';
+      certModalPlaceholder.style.display = 'block';
+
+      if (file) {
+        const testImg = new Image();
+        testImg.onload = () => {
+          certModalImg.src = file;
+          certModalImg.style.display = 'block';
+          certModalPlaceholder.style.display = 'none';
+          if (certModalDirectLink) {
+            certModalDirectLink.href = file;
+            certModalDirectLink.style.display = 'inline-flex';
+          }
+        };
+        testImg.onerror = () => {
+          certModalImg.style.display = 'none';
+          certModalPlaceholder.style.display = 'block';
+          if (certModalDirectLink) certModalDirectLink.style.display = 'none';
+        };
+        testImg.src = file;
+      }
+    }
+
+    if (certModalOverlay) {
+      certModalOverlay.classList.add('active');
+      certModalOverlay.setAttribute('aria-hidden', 'false');
+    }
+    sfx.accessGranted();
+  }
+
+  function closeCertModal() {
+    if (certModalOverlay) {
+      certModalOverlay.classList.remove('active');
+      certModalOverlay.setAttribute('aria-hidden', 'true');
+    }
+    sfx.click();
+  }
+
+  certCards.forEach((card) => {
+    card.addEventListener('click', () => openCertModal(card));
+  });
+
+  if (certModalClose) certModalClose.addEventListener('click', closeCertModal);
+
+  if (certModalOverlay) {
+    certModalOverlay.addEventListener('click', (e) => {
+      if (e.target === certModalOverlay) closeCertModal();
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && certModalOverlay && certModalOverlay.classList.contains('active')) {
+      closeCertModal();
+    }
+  });
+
 })();

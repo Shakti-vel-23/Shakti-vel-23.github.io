@@ -1162,7 +1162,7 @@ section {
 /* Certifications Showcase */
 .certifications-deck {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.25rem;
   margin-top: 3.5rem;
 }
@@ -1173,15 +1173,23 @@ section {
   border-radius: 8px;
   padding: 1.25rem;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
+  cursor: pointer;
 }
 
 .cert-card:hover {
   border-color: var(--matrix-green);
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px var(--matrix-glow);
+}
+
+.cert-left-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .cert-icon {
@@ -1201,6 +1209,153 @@ section {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   color: var(--text-dim);
+}
+
+.cert-view-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--matrix-green);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.cert-card:hover .cert-view-btn {
+  background: var(--matrix-green);
+  color: #000;
+  box-shadow: 0 0 10px var(--matrix-glow);
+}
+
+/* Certificate Modal Lightbox */
+.cert-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.88);
+  backdrop-filter: blur(14px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.cert-modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cert-modal-box {
+  background: rgba(8, 17, 36, 0.98);
+  border: 1px solid var(--cyan);
+  border-radius: 14px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px var(--cyan-glow);
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.cert-modal-overlay.active .cert-modal-box {
+  transform: scale(1);
+}
+
+.cert-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.75rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(12, 24, 50, 0.6);
+}
+
+.cert-modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.2rem;
+}
+
+.cert-modal-issuer {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--matrix-green);
+}
+
+.cert-modal-close {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cert-modal-close:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+}
+
+.cert-modal-body {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.cert-preview-frame {
+  width: 100%;
+  min-height: 280px;
+  max-height: 520px;
+  background: #040914;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.cert-preview-img {
+  max-width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.cert-placeholder-notice {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+.cert-modal-footer {
+  padding: 1rem 1.75rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(12, 24, 50, 0.4);
 }
 
 /* ==========================================================================
